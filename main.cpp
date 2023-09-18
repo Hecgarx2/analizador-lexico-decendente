@@ -74,11 +74,57 @@ void term(string expresion){
     }
     else{
         cout<<"Expresion invalida"<<endl;
+        exit;
+    }  
+}
+
+void resto_expr(string expresion){
+    char preanalisis;
+    preanalisis = get_preanalisis(expresion);
+    if (preanalisis == '+'){
+        coincidir('+');
+        term(expresion);
+        resto_expr(expresion);
+    }
+    else if (preanalisis == '-'){
+        coincidir('-');
+        term(expresion);
+        resto_expr(expresion);
+    }
+    else if (preanalisis == '/'){
+        coincidir('/');
+        term(expresion);
+        resto_expr(expresion);
+    }
+    else if (preanalisis == '*'){
+        coincidir('*');
+        term(expresion);
+        resto_expr(expresion);
+    }
+    else if (preanalisis == '('){
+        coincidir('(');
+        term(expresion);
+        resto_expr(expresion);
+    }
+    else if (preanalisis == ')'){
+        coincidir(')');
+        term(expresion);
+        resto_expr(expresion);
+    }
+    else if (preanalisis == '\0')
+    {
+        cout<<"Expresion valida"<<endl;
+    }
+    
+    else{
+        cout<<"Expresion invalida"<<endl;
+        exit;
     }  
 }
 
 void expr(string expresion){
     term(expresion);
+    resto_expr(expresion);
 }
 
 int main(int argc, char const *argv[])
